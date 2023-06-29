@@ -1,0 +1,36 @@
+use ecommerce;
+select * from clients; -- clientes
+select * from product; -- produtos
+select * from ordersToProduct; -- ligação n:n pedidos e produtos
+select * from orders; -- pedidos
+select * from productStorage; -- Localização e quantidade de estoques
+select * from storageToProduct; -- Local onde cada produto está armazenado
+select * from employee; -- Todos empregados ligados ao ecommerce
+select * from employeeToProduct; -- ligação n:n entre empregado e produtos e quantidade
+
+-- Quantos pedidos foram feitos por cada cliente
+select o.idOrdersClient as idCliente, c.Fname as Nome, count(idOrdersClient) as total_de_pedidos 
+from orders o, clients c
+where idOrdersClient = idClient
+group by idOrdersClient order by idOrdersClient;
+
+-- Algum vendedor também é fornecedor?
+select * from employee where activity='supplier' and activity='saller';
+
+-- Relação de produtos fornecedores e estoques;
+select socialName as nome, fantasyName as nome_da_empresa, activity as função, Pname as produto, prodQuantity as Quantidade_em_estoque
+from employeeToProduct etp
+inner join employee e on etp.idEmployee = e.idEmployee
+inner join product p
+order by nome;
+
+-- Relação cliente-pedido-vendedor
+select c.Fname as Cliente, o.ordersState as status, o.ordersDescription as modalidade, o.payment as pagamento, otp.quantity, otp.status, 
+p.Pname as produto, p.category as categoria, e.socialName as Vendedor, fantasyName as Empresa
+from clients c 
+left outer join orders o on idClient = idOrdersClient 
+left outer join ordersToProduct otp on o.idOrders = otp.idOrders 
+left outer join product p on otp.idProduct = p.idProduct
+left outer join employeeToProduct etp on p.idProduct = etp.idProduct
+left outer join employee e on e.idEmployee = etp.idEmployee;
+
