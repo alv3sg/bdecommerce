@@ -1,0 +1,56 @@
+use ecommerce;
+show tables;
+insert into clients (Fname, Minit, Lname, CPF, address)
+					values('João', 'Sil', 'Oliveira', '12345678901', 'Rua da Paz 10 Lisboa'),
+					('Maria', 'Fer', 'Santos', '23456789012', 'Avenida Brasil 20 Porto'),
+					('Carlos', 'Sou', 'Costa', '34567890123', 'Praça da República 30 Coimbra'),
+					('Lúcia', 'Gon', 'Dias', '45678901234', 'Rua do Sol 40 Faro'),
+					('Tiago', 'Mor', 'Silva', '56789012345', 'Avenida da Liberdade 50 Braga');
+select * from clients;
+
+insert into product (Pname, Classification_kids, category, Avaliation, size)
+					values('Lego', '1', 'brinquedos', '4.8', 'médio'),
+					('iPhone', '0', 'Eletronico', '4.6', 'médio'),
+					('Coca-Cola', '0', 'alimento', '4.3', 'pequeno'),
+					('HP', '1', 'brinquedos', '4.9', 'médio'),
+					('Camisa', '1', 'vestimenta', '4.5', 'médio');
+select * from product;
+
+insert into orders (idOrdersClient, ordersState, ordersDescription, sendValue, payment)
+					values('4', 'Confirmado', 'Compra pelo site', '25', 'Credit Card'),
+					('3', 'Em Processamento', 'Compra pelo app', '15', 'Debit Card'),
+					('5', 'Cancelado', 'Compra pelo site', '40', 'Cash'),
+					('2', 'Em Processamento', 'Compra pelo app', '30', 'Credit Card'),
+					('1', 'Cancelado', 'Compra pelo site', '10', 'Debit Card');
+select * from orders;
+
+insert into ordersToProduct (idOrders, idProduct, quantity, status) 
+							value(3, 19, 10, 'Disponivel'),
+							(5, 20, 5, 'Sem estoque'),
+							(1, 17, 20, 'Disponivel'),
+							(4, 18, 15, 'Sem estoque'),
+							(2, 16, 25, 'Disponivel');
+select * from ordersToProduct;
+
+insert into productStorage (storageLocation, storageQuantity) 
+							values ('Lisboa',1000),
+							('Braga',1000),
+							('Porto',1000);
+select * from productStorage;
+
+insert into storageToProduct (idProdStorage, idProduct)
+							values(1,16),(2,17),(3,18),(1,19),(2,20);
+select * from storageToProduct;
+
+desc employee;
+insert into employee (socialName, CPF, CNPJ, address, fantasyName, contact, activity)
+					values ('Joana', '12345678901', null, 'Rua das Flores, 10', 'Floricultura Joana', '(11) 1234-5678', 'supplier'),
+					('Carlos', '23456789012', '23456789000134', 'Avenida Brasil, 20', 'Loja de Informática Carlos', '(21) 2345-6789', 'saller'),
+					('Marta', '34567890123', '34567890000145', 'Praça da República, 30', 'Padaria Marta', '(31) 3456-7890', 'supplier'),
+					('Pedro', '45678901234', '45678901000156', 'Rua do Sol, 40', 'Academia Pedro', '(41) 4567-8901', 'saller'),
+					('Ana', '56789012345', '56789012000167', 'Avenida da Liberdade, 50', 'Livraria Ana', '(51) 5678-9012', 'supplier');
+select * from employee;
+
+desc employeeToProduct;
+insert into employeeToProduct (idEmployee, idProduct, prodQuantity) values(6,16,10),(7,17,11),(8,18,9),(9,19,21),(10,20,34);
+select * from employeeToProduct;
